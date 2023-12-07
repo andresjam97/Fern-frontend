@@ -1,0 +1,37 @@
+<form [formGroup]="miFormulario" (ngSubmit)="submitForm()">
+    <div cdkDropList (cdkDropListDropped)="onCampoDropped($event)">
+  
+      <div *ngFor="let campo of camposFormulario" cdkDrag>
+        <ng-container *ngIf="campo.tipo === 'text'">
+          <mat-form-field class="example-full-width">
+            <mat-label>{{ campo.label }}:</mat-label>
+            <input matInput [formControlName]="campo.nombre" placeholder="{{ campo.label }}">
+          </mat-form-field>
+          <ng-container *ngFor="let validacion of campo.validaciones">
+            <span *ngIf="validacion.tipo === 'minLength'">Longitud Mínima: {{ validacion.valor }}</span>
+            <span *ngIf="validacion.tipo === 'required'">Requerido</span>
+            <!-- Otras reglas de validación -->
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  
+    <select [(ngModel)]="tipoCampoSeleccionado">
+      <option value="text">Texto</option>
+      <option value="email">Email</option>
+      <!-- Otras opciones de tipos de campo -->
+    </select>
+    <input type="text" [(ngModel)]="nombreCampo" placeholder="Nombre del Campo">
+    <input type="text" [(ngModel)]="labelCampo" placeholder="Etiqueta del Campo">
+  
+    <select [(ngModel)]="reglaSeleccionada">
+      <option value="required">Requerido</option>
+      <option value="minLength">Longitud Mínima</option>
+      <!-- Otras reglas de validación -->
+    </select>
+    <input *ngIf="reglaSeleccionada === 'minLength'" type="number" [(ngModel)]="valorRegla" placeholder="Valor de la Regla">
+    <button (click)="agregarCampo()">Agregar Campo</button>
+  
+    <button mat-button color="primary" type="submit">Enviar</button>
+  </form>
+  
