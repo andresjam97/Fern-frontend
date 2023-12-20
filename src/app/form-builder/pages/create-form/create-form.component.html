@@ -1,37 +1,66 @@
-<form [formGroup]="miFormulario" (ngSubmit)="submitForm()">
-    <div cdkDropList (cdkDropListDropped)="onCampoDropped($event)">
-  
-      <div *ngFor="let campo of camposFormulario" cdkDrag>
-        <ng-container *ngIf="campo.tipo === 'text'">
-          <mat-form-field class="example-full-width">
-            <mat-label>{{ campo.label }}:</mat-label>
-            <input matInput [formControlName]="campo.nombre" placeholder="{{ campo.label }}">
+<app-navigation></app-navigation>
+<!-- create-form.component.html -->
+<div class="container">
+  <br><br>
+  <form [formGroup]="form">
+    <mat-grid-list cols="3" rowHeight="150px" rowWidth="100%">
+      <mat-grid-tile *ngFor="let field of formFields; let i = index">
+        <div>
+          <mat-form-field>
+            <mat-label>Nombre del Campo:</mat-label>
+            <input
+              matInput
+              id="fieldName"
+              type="text"
+              [formControlName]="field.name"
+              placeholder="Ingrese un nombre para el campo"
+            />
           </mat-form-field>
-          <ng-container *ngFor="let validacion of campo.validaciones">
-            <span *ngIf="validacion.tipo === 'minLength'">Longitud Mínima: {{ validacion.valor }}</span>
-            <span *ngIf="validacion.tipo === 'required'">Requerido</span>
-            <!-- Otras reglas de validación -->
-          </ng-container>
-        </ng-container>
-      </div>
+          <label>{{ field.label }}</label>
+          <div [ngSwitch]="field.type">
+            <mat-form-field *ngSwitchCase="'text'">
+              <input
+                matInput
+                [formControlName]="field.name"
+                placeholder="Ingrese un valor"
+              />
+            </mat-form-field>
+            <mat-form-field *ngSwitchCase="'select'">
+              <mat-label>{{ field.label }}</mat-label>
+              <mat-select [formControlName]="field.name">
+                <mat-option
+                  *ngFor="let option of field.options"
+                  [value]="option"
+                  >{{ option }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field
+              class="example-full-width"
+              *ngSwitchCase="'textarea'"
+            >
+              <mat-label>{{ field.label }}</mat-label>
+              <textarea
+                [formControlName]="field.name"
+                matInput
+                placeholder="Ex. It makes me feel..."
+              ></textarea>
+            </mat-form-field>
+          </div>
+          <button mat-button (click)="removeField(i)">Eliminar</button>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+    <div class="button-container">
+      <button mat-raised-button color="primary" (click)="addField()">
+        Agregar Campo de Texto
+      </button>
+      <button mat-raised-button color="accent" (click)="addSelectField()">
+        Agregar Campo de Selección
+      </button>
+      <button mat-raised-button color="warn" (click)="addTextAreaField()">
+        Agregar Campo Text area
+      </button>
     </div>
-  
-    <select [(ngModel)]="tipoCampoSeleccionado">
-      <option value="text">Texto</option>
-      <option value="email">Email</option>
-      <!-- Otras opciones de tipos de campo -->
-    </select>
-    <input type="text" [(ngModel)]="nombreCampo" placeholder="Nombre del Campo">
-    <input type="text" [(ngModel)]="labelCampo" placeholder="Etiqueta del Campo">
-  
-    <select [(ngModel)]="reglaSeleccionada">
-      <option value="required">Requerido</option>
-      <option value="minLength">Longitud Mínima</option>
-      <!-- Otras reglas de validación -->
-    </select>
-    <input *ngIf="reglaSeleccionada === 'minLength'" type="number" [(ngModel)]="valorRegla" placeholder="Valor de la Regla">
-    <button (click)="agregarCampo()">Agregar Campo</button>
-  
-    <button mat-button color="primary" type="submit">Enviar</button>
   </form>
-  
+</div>

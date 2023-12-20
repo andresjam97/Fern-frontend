@@ -1,19 +1,6 @@
 import { Component } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
-
-
-interface ReglaValidacion {
-  tipo: string;
-  valor?: any;
-}
-
-interface CampoFormulario {
-  nombre: string;
-  label: string;
-  tipo: string;
-  validaciones?: ReglaValidacion[];
-}
+import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
+import { DynamicFormField } from '../../Classes/dynamic-form-field.mode';
 
 @Component({
   selector: 'app-create-form',
@@ -22,70 +9,65 @@ interface CampoFormulario {
 })
 
 export class CreateFormComponent {
-  camposFormulario: CampoFormulario[] = [];
-  miFormulario: FormGroup = new FormGroup({});
-  tipoCampoSeleccionado: string = '';
-  nombreCampo: string = '';
-  labelCampo: string = '';
-  reglaSeleccionada: string = '';
-  valorRegla: any;
 
-  constructor(private formBuilder: FormBuilder) { }
+  formFields: DynamicFormField[] = [];
+  form: FormGroup;
 
-  ngOnInit() {
-    this.camposFormulario = [
-      { nombre: 'nombre', label: 'Nombre', tipo: 'text', validaciones: [{ tipo: 'required' }] },
-      { nombre: 'correo', label: 'Correo', tipo: 'email', validaciones: [{ tipo: 'required' }, { tipo: 'email' }] },
-    ];
+  dynamicFormOptions = {
+    fieldTypes: ['text', 'select'],
+    validations: ['required', 'pattern']
+  };
 
-    this.actualizarFormulario();
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({});
   }
 
-  actualizarFormulario() {
-    const group: { [key: string]: any } = {};
-  
-    this.camposFormulario.forEach(campo => {
-      const control = this.formBuilder.control('', this.obtenerValidaciones(campo.validaciones));
-      group[campo.nombre] = control;
-    });
-    this.miFormulario = this.formBuilder.group(group);
-  }
-  
 
-  obtenerValidaciones(validadores: ReglaValidacion[] = []): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const validaciones: ValidatorFn[] = (validadores || []).map(v => {
-        switch (v.tipo) {
-          case 'required':
-            return Validators.required;
-          case 'email':
-            return Validators.email;
-          default:
-            return null; 
-        }
-      }).filter(v => v !== null) as ValidatorFn[];
-  
-      return Validators.compose(validaciones)(control);
+  addField() {
+    const newField: DynamicFormField = {
+      type: 'text',
+      label: 'Nuevo Campo',
+      name: 'newField', // Puedes proporcionar un valor predeterminado o dejarlo en blanco
+      options: [] // Para campos de texto, puedes dejarlo como un array vacío
     };
+    this.formFields.push(newField);
+    this.form.addControl(newField.name, this.fb.control(''));
   }
 
-  onCampoDropped(event: CdkDragDrop<CampoFormulario[]>) {
-    moveItemInArray(this.camposFormulario, event.previousIndex, event.currentIndex);
-  }
-
-  agregarCampo() {
-    const nuevaRegla: ReglaValidacion = { tipo: this.reglaSeleccionada, valor: this.valorRegla };
-    const nuevoCampo: CampoFormulario = {
-      nombre: this.nombreCampo,
-      label: this.labelCampo,
-      tipo: this.tipoCampoSeleccionado,
-      validaciones: [nuevaRegla],
+  addSelectField() {
+    const newSelectField: DynamicFormField = {
+      type: 'select',
+      label: 'Nuevo Campo de Selección',
+      name: 'newSelectField',
+      options: ['Opción 1', 'Opción 2', 'Opción 3']
     };
-    this.camposFormulario.push(nuevoCampo);
-    this.actualizarFormulario();
+    this.formFields.push(newSelectField);
+    this.form.addControl(newSelectField.name, this.fb.control(''));
   }
 
-  submitForm() {
-      console.log(this.camposFormulario);
+  addTextAreaField() {
+    const newTextAreaField: DynamicFormField = {
+      type: 'textarea',
+      label: 'Nuevo Campo de Texto',
+      name: 'newTextAreaField',
+      options: [] // Para campos de texto, puedes dejarlo como un array vacío
+    };
+    this.formFields.push(newTextAreaField);
+    this.form.addControl(newTextAreaField.name, this.fb.control(''));
+  }
+
+
+  removeField(index: number) {
+    const fieldName = this.formFields[index].name;
+    this.form.removeControl(fieldName);
+    this.formFields.splice(index, 1);
+  }
+
+  getFieldNameControlName(index: number): string {
+    return `name_${index}`;
+  }
+
+  sendForm() {
+    console.log(this.formFields);
   }
 }

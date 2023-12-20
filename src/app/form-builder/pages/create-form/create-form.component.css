@@ -1,0 +1,9 @@
+/* create-form.component.css */
+.button-container {
+  display: flex;
+  gap: 16px; /* Puedes ajustar este valor según tus necesidades */
+}
+
+.delete-button {
+  margin-left: 8px; /* Puedes ajustar este valor según tus necesidades */
+}
