@@ -12,15 +12,23 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatSelectModule} from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const Material = [
   MatInputModule,
+  MatCheckboxModule,
   MatButtonModule,
   MatFormFieldModule,
   MatGridListModule,
   MatSelectModule,
   MatToolbarModule,
+  MatListModule,
   MatIconModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
   DragDropModule
 ]
 

@@ -1,9 +1,24 @@
 /* create-form.component.css */
 .button-container {
+  margin-top: 25px;
   display: flex;
   gap: 16px; /* Puedes ajustar este valor según tus necesidades */
 }
+ button{
+  padding: 15px;
+ }
 
 .delete-button {
   margin-left: 8px; /* Puedes ajustar este valor según tus necesidades */
 }
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-builder, .form-preview {
+  width: 48%; /* Ajusta el ancho según necesites */
+}
+
+/* Agrega aquí más estilos según tus preferencias */

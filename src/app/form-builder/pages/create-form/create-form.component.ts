@@ -1,73 +1,77 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn } from '@angular/forms';
-import { DynamicFormField } from '../../Classes/dynamic-form-field.mode';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormField } from '../../Classes/form-field.model';
+import { FormService } from '../../service/form.service';
+import { DynamicForm } from '../../Classes/dynamic-form';
 
 @Component({
   selector: 'app-create-form',
   templateUrl: './create-form.component.html',
-  styleUrls: ['./create-form.component.css']
+  styleUrls: ['./create-form.component.css'],
 })
+export class CreateFormComponent implements OnInit {
+  dynamicForms: DynamicForm[] = [];
+  newFieldType = 'text';
+  newFieldLabel = '';
+  newFieldName = '';
+  newFieldValidations: string[] = [];
+  newFieldOptions: string[] = [];
+  optionInput: string = '';
+  minLengthValue: number | undefined; // Cambiar a number | undefined
+  constructor(private formService: FormService) { }
 
-export class CreateFormComponent {
-
-  formFields: DynamicFormField[] = [];
-  form: FormGroup;
-
-  dynamicFormOptions = {
-    fieldTypes: ['text', 'select'],
-    validations: ['required', 'pattern']
-  };
-
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({});
+  ngOnInit() {
+    this.addNewForm();
   }
 
+  addNewForm() {
+    this.dynamicForms.push({
+      fields: [],
+      formGroup: new FormGroup({})
+    });
+  }
+  sendForm(){
+    console.log(this.dynamicForms);
+  }
 
-  addField() {
-    const newField: DynamicFormField = {
-      type: 'text',
-      label: 'Nuevo Campo',
-      name: 'newField', // Puedes proporcionar un valor predeterminado o dejarlo en blanco
-      options: [] // Para campos de texto, puedes dejarlo como un array vacío
+  addFieldToForm(dynamicForm: DynamicForm) {
+    const newField: FormField = {
+      type: this.newFieldType,
+      name: this.newFieldName || `field${dynamicForm.fields.length}`,
+      label: this.newFieldLabel || `Field ${dynamicForm.fields.length}`,
+      validations: this.newFieldValidations,
+      minLength: this.newFieldValidations.includes('minLength') ? this.minLengthValue ?? undefined : undefined,
+      options: this.newFieldType === 'select' ? [...this.newFieldOptions] : undefined
     };
-    this.formFields.push(newField);
-    this.form.addControl(newField.name, this.fb.control(''));
+    dynamicForm.fields.push(newField);
+    dynamicForm.formGroup = this.formService.toFormGroup(dynamicForm.fields);
+    this.resetFieldConfig();
   }
 
-  addSelectField() {
-    const newSelectField: DynamicFormField = {
-      type: 'select',
-      label: 'Nuevo Campo de Selección',
-      name: 'newSelectField',
-      options: ['Opción 1', 'Opción 2', 'Opción 3']
-    };
-    this.formFields.push(newSelectField);
-    this.form.addControl(newSelectField.name, this.fb.control(''));
+  addOption(option: string) {
+    if (option) {
+      this.newFieldOptions.push(option);
+      this.optionInput = '';
+    }
   }
 
-  addTextAreaField() {
-    const newTextAreaField: DynamicFormField = {
-      type: 'textarea',
-      label: 'Nuevo Campo de Texto',
-      name: 'newTextAreaField',
-      options: [] // Para campos de texto, puedes dejarlo como un array vacío
-    };
-    this.formFields.push(newTextAreaField);
-    this.form.addControl(newTextAreaField.name, this.fb.control(''));
+  private resetFieldConfig() {
+    // Reset field configuration after adding a field
+    this.newFieldType = 'text';
+    this.newFieldLabel = '';
+    this.newFieldName = '';
+    this.newFieldValidations = [];
+    this.newFieldOptions = [];
+    this.optionInput = '';
   }
 
+  handleFileInput(event: Event) {
+    const element = event.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
 
-  removeField(index: number) {
-    const fieldName = this.formFields[index].name;
-    this.form.removeControl(fieldName);
-    this.formFields.splice(index, 1);
-  }
-
-  getFieldNameControlName(index: number): string {
-    return `name_${index}`;
-  }
-
-  sendForm() {
-    console.log(this.formFields);
+    if (fileList) {
+      // Lógica para manejar los archivos cargados
+      // Por ejemplo, puedes tomar el primer archivo con fileList[0]
+    }
   }
 }
