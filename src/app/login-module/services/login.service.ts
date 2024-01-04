@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 
 export class LoginService {
 
-  private apiUrl = 'http://localhost:3000'; // URL del backend
+  private apiUrl = 'http://192.168.20.75:8080/api'; // URL del backend
   private jwtHelper = new JwtHelperService();
 
   constructor(private http: HttpClient) {}

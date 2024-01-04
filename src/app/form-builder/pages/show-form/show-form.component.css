@@ -1,0 +1,23 @@
+/* Estilos para hacer los campos más grandes y en dos columnas */
+.container {
+    margin: 0 auto;
+    max-width: 800px; /* Ajusta según tu preferencia */
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.mat-form-field {
+    width: 100%;
+}

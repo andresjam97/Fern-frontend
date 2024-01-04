@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { FormField } from '../Classes/form-field.model';
 import { DynamicForm } from '../Classes/dynamic-form';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormService {
-
-  constructor() { }
+  url:string = "http://192.168.20.75:8080/api";
+  constructor(public Http:HttpClient) { }
 
   toFormGroup(fields: FormField[] ) {
     const group: any = {};
@@ -39,6 +41,23 @@ export class FormService {
       formGroup: new FormGroup({})
     };
     return newForm;
+  }
+
+
+  sendForm(fields:any, title:string): Observable<any>{
+    return this.Http.post(`${this.url}/forms`, {fields , title });    
+  }
+
+  getForm(id:any): Observable<any>{
+    return this.Http.get(`${this.url}/forms/${id}`);    
+  }
+
+  sendformData(id:string, form : any){
+    return this.Http.post(`${this.url}/forms/${id}`, {form});    
+  }
+
+  getformData(id:string){
+    return this.Http.get(`${this.url}/forms/${id}/data`);    
   }
 
 }

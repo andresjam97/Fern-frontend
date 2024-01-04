@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { FormField } from '../../Classes/form-field.model';
 import { FormService } from '../../service/form.service';
 import { DynamicForm } from '../../Classes/dynamic-form';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-form',
@@ -18,8 +19,13 @@ export class CreateFormComponent implements OnInit {
   newFieldOptions: string[] = [];
   optionInput: string = '';
   minLengthValue: number | undefined; // Cambiar a number | undefined
-  constructor(private formService: FormService) { }
+  titleForm: string ='';
+  head: boolean = false;
+  detail: boolean = false;
+  
+  constructor(private formService: FormService,  private router: Router) { }
 
+  
   ngOnInit() {
     this.addNewForm();
   }
@@ -31,7 +37,30 @@ export class CreateFormComponent implements OnInit {
     });
   }
   sendForm(){
-    console.log(this.dynamicForms);
+    const allFieldDetails = this.dynamicForms.map(form => {
+      return form.fields.map(field => {
+        return {
+          type: field.type,
+          name: field.name,
+          label: field.label,
+          validations: field.validations,
+          head: field.head,
+          detail: field.detail,
+          options: field.options,
+        };
+      });
+    }).flat();  
+
+    this.formService.sendForm(allFieldDetails, this.titleForm).subscribe(
+      response => {
+        this.resetFieldConfig();
+        this.titleForm = '';
+        this.dynamicForms = [];    
+    },
+    error => {
+      console.error('Error en la solicitud:', error);
+    }
+    );
   }
 
   addFieldToForm(dynamicForm: DynamicForm) {
@@ -41,7 +70,9 @@ export class CreateFormComponent implements OnInit {
       label: this.newFieldLabel || `Field ${dynamicForm.fields.length}`,
       validations: this.newFieldValidations,
       minLength: this.newFieldValidations.includes('minLength') ? this.minLengthValue ?? undefined : undefined,
-      options: this.newFieldType === 'select' ? [...this.newFieldOptions] : undefined
+      options: this.newFieldType === 'SELECT' ? [...this.newFieldOptions] : undefined,
+      head: this.head ? this.head : undefined,
+      detail: this.detail ? this.detail : undefined,
     };
     dynamicForm.fields.push(newField);
     dynamicForm.formGroup = this.formService.toFormGroup(dynamicForm.fields);
@@ -63,6 +94,8 @@ export class CreateFormComponent implements OnInit {
     this.newFieldValidations = [];
     this.newFieldOptions = [];
     this.optionInput = '';
+    this.head = false;
+    this.detail = false;
   }
 
   handleFileInput(event: Event) {

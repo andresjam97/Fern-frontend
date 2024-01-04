@@ -16,6 +16,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
+import {MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 const Material = [
   MatInputModule,
@@ -29,7 +34,10 @@ const Material = [
   MatIconModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  DragDropModule
+  DragDropModule,
+  MatSortModule,
+  MatPaginatorModule,
+  MatTableModule
 ]
 
 @NgModule({
@@ -42,6 +50,7 @@ const Material = [
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
     ...Material
   ],
   exports: [

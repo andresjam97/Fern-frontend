@@ -5,4 +5,6 @@ export interface FormField {
   validations: any;
   options?: string[];
   minLength?: number;
+  head?: boolean;
+  detail?: boolean;
 }

@@ -1,0 +1,19 @@
+<app-navigation></app-navigation>
+
+    <div class="container">
+        <div *ngIf="formData">
+            <div>
+                <h2>Cliente: {{formData.data.form.Cliente}}</h2>
+                <h2>Vendedor: {{formData.data.form.Vendedor}}</h2>
+            </div>
+    
+            <div class="row">
+                <div *ngFor="let key of objectKeys(formData.data.form)" class="col">
+                    <div *ngIf="key != 'Cliente' && key != 'Vendedor'">
+                        <h3>{{formData.data.form[key].Libro}}</h3>
+                        <p>Cantidad: {{formData.data.form[key].Cantidad}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
