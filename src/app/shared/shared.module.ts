@@ -51,6 +51,7 @@ const Material = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    DragDropModule,
     ...Material
   ],
   exports: [

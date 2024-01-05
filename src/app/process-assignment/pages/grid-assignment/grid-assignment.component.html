@@ -1,1 +1,18 @@
 <app-navigation></app-navigation>
+<div class="container">
+  <mat-form-field>
+    <mat-label>Nombre Proceso</mat-label>
+    <input matInput [(ngModel)]="nuevaListaTitulo" placeholder="Nombre de el proceso">
+  </mat-form-field><br>
+  <button mat-raised-button color="primary" (click)="agregarLista()">Agregar proceso</button>
+
+  <br><br>
+  <div class="board" cdkDropListGroup>
+          <app-list *ngFor="let lista of listas"
+                    [list]="lista"
+                    cdkDropList
+                    [cdkDropListData]="lista.cards"
+                    (cdkDropListDropped)="drop($event)"
+                    ></app-list>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="list">
+
+  <h3>{{ list.title }}</h3>
+  <div *ngFor="let card of list.cards" cdkDrag>
+    <app-card [card]="card"></app-card>
+  </div>
+</div>
