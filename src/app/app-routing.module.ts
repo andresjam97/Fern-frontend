@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { WorflowsListComponent } from './workflows/worflows-list/worflows-list.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
     path: 'assignment',
     loadChildren:()=> import('./process-assignment/process-assignment.module').then(m => m.ProcessAssignmentModule)
   },
+  {
+    path: "workflows",
+    component: WorflowsListComponent,
+  }
 ];
 
 @NgModule({

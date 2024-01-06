@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>Agregar proceso</h1>
+<section mat-dialog-content>
+    <form [formGroup]="workflowForm" (ngSubmit)="saveWorkflow()">
+        <div>
+            <mat-form-field>
+                <mat-label>Título del proceso</mat-label>
+                <input matInput formControlName="title" required="">
+            </mat-form-field>
+        </div>
+
+        <div>
+            <mat-form-field>
+                <mat-label>Descripción del proceso</mat-label>
+                <textarea matInput formControlName="description" required=""></textarea>
+            </mat-form-field>
+        </div>
+
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <button *ngIf="!loading" mat-raised-button [disabled]="workflowForm.invalid">Guardar</button>
+    </form>
+</section>

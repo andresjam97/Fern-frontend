@@ -1,0 +1,39 @@
+<h1>Procesos registrados en el sistema</h1>
+
+<button (click)="openCreateWorkflorDialog()" mat-raised-button color="primary">
+    Crear <mat-icon>add</mat-icon>
+</button>
+
+<div *ngIf="workflows.length == 0; else workflowsLoaded">
+    <strong>Aún no se han creado procesos</strong>
+</div>
+
+<ng-template #workflowsLoaded>
+    <table mat-table [dataSource]="workflows">
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef>Nombre del proceso</th>
+            <td mat-cell *matCellDef="let workflow"> {{workflow.title}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Estado del proceso</th>
+            <td mat-cell *matCellDef="let workflow"> {{workflow.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let workflow">
+                <button (click)="openEditWorkFlow(workflow)" mat-icon-button title="Editar proceso" aria-label="Boton para editar proceso">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button (click)="displayDeleteWorkflowAlert(workflow)" mat-icon-button color="warn"
+                    title="Borrar proceso" aria-label="Boton borrar proceso">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</ng-template>
