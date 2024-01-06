@@ -48,14 +48,6 @@
 
 
                             <div *ngSwitchCase="'FILE'">
-                              <input type="file" [formControlName]="field.name" (change)="handleFileInput($event)">
-                              <label>{{ field.label }}</label>
-                            </div>
-
-
-
-
-                            <div *ngSwitchCase="'file'">
                                 <input type="file" [formControlName]="field.name">
                                 <label>{{ field.label }}</label>
                             </div>
