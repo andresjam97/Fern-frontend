@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "http://ferncol.com",
+      "target": "http://128.199.12.120",
       "secure": false,
       "changeOrigin": true
     }
