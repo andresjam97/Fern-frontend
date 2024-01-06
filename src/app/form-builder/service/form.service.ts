@@ -58,7 +58,11 @@ export class FormService {
   }
 
   getformData(id:string){
-    return this.Http.get(`${this.url}/forms/${id}/data`);
+    return this.Http.get(`${this.url}/forms/${id}/list`);
+  }
+
+  getAllFormsData(): Observable<any>{
+    return this.Http.get(`${this.url}/forms`);
   }
 
   getAllForms(): Observable<any>{
