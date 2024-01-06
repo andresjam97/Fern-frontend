@@ -7,13 +7,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { ShowFormComponent } from './pages/show-form/show-form.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ShowFormDataComponent } from './pages/show-form-data/show-form-data.component';
+import { ShowAllCreatedFormsComponent } from './pages/show-all-created-forms/show-all-created-forms.component';
 
 
 @NgModule({
   declarations: [
     CreateFormComponent,
     ShowFormComponent,
-    ShowFormDataComponent
+    ShowFormDataComponent,
+    ShowAllCreatedFormsComponent
   ],
   imports: [
     CommonModule,

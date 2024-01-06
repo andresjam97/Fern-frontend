@@ -20,12 +20,12 @@ export class GridAssignmentComponent {
   nuevaListaTitulo: string = '';
   listas: List[] = [    {
       id: 1,
-      title: 'TO DO',
+      title: 'Etapa 1',
       cards: [{ id: 1, title: 'Task 1' }, { id: 2, title: 'Task 2' }]
     },
     {
       id: 2,
-      title: 'In Progress',
+      title: 'Etapa 2',
       cards: [{ id: 3, title: 'Task 3' }]
     }
   ];

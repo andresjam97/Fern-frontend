@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FormService {
-  url:string = "http://192.168.20.75:8080/api";
+  url:string = "http://ferncol.com/api";
   constructor(public Http:HttpClient) { }
 
   toFormGroup(fields: FormField[] ) {
@@ -45,19 +45,22 @@ export class FormService {
 
 
   sendForm(fields:any, title:string): Observable<any>{
-    return this.Http.post(`${this.url}/forms`, {fields , title });    
+    return this.Http.post(`${this.url}/forms`, {fields , title });
   }
 
   getForm(id:any): Observable<any>{
-    return this.Http.get(`${this.url}/forms/${id}`);    
+    return this.Http.get(`${this.url}/forms/${id}`);
   }
 
   sendformData(id:string, form : any){
-    return this.Http.post(`${this.url}/forms/${id}`, {form});    
+    return this.Http.post(`${this.url}/forms/${id}`, {form});
   }
 
   getformData(id:string){
-    return this.Http.get(`${this.url}/forms/${id}/data`);    
+    return this.Http.get(`${this.url}/forms/${id}/data`);
   }
 
+  getAllForms(): Observable<any>{
+    return this.Http.get(`${this.url}/forms`);
+  }
 }
