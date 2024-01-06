@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FormService {
-  url:string = "http://ferncol.com/api";
+  url:string = "http://localhost:8080/api";
   constructor(public Http:HttpClient) { }
 
   toFormGroup(fields: FormField[] ) {
