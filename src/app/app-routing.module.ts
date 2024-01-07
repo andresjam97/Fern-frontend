@@ -6,11 +6,11 @@ const routes: Routes = [
     path:'',
     loadChildren:()=> import('./login-module/login-module.module').then(m=>m.LoginModuleModule)
   },
+  { path: "admin", loadChildren: () => import("./admin/routes").then(mod => mod.ADMIN_ROUTES)},
   {
     path: 'builder',
     loadChildren:()=> import('./form-builder/form-builder.module').then(m => m.FormBuilderModule)
   },
-
   {
     path: 'assignment',
     loadChildren:()=> import('./process-assignment/process-assignment.module').then(m => m.ProcessAssignmentModule)
