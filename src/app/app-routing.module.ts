@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WorflowsListComponent } from './workflows/worflows-list/worflows-list.component';
 
 const routes: Routes = [
   {
@@ -18,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: "workflows",
-    component: WorflowsListComponent,
+    loadComponent: () => import("./workflows/worflows-list/worflows-list.component").then(m => m.WorflowsListComponent)
   }
 ];
 
