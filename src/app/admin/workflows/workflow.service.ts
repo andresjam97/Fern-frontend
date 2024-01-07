@@ -14,7 +14,7 @@ export class WorkflowService {
   constructor(private http: HttpClient) { }
 
   getAllWorkflows(): Observable<Workflow[]> {
-    return this.http.get<Workflow[]>(environment.apiUrl + "/workflows");
+    return this.http.get<Workflow[]>(this.baseUrl);
   }
 
   getWorkflowById(id: string) : Observable<Workflow>  {
@@ -22,10 +22,10 @@ export class WorkflowService {
   }
 
   createWorkflow(payload: any) {
-    return this.http.post(environment.apiUrl + "/workflows", payload);
+    return this.http.post(this.baseUrl, payload);
   }
 
   deleteWorkFlow(id: string) {
-    return this.http.delete(environment.apiUrl + "/workflows/" + id);
+    return this.http.delete(this.baseUrl + `/${id}`);
   }
 }
