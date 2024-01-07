@@ -1,6 +1,7 @@
 import { Route } from "@angular/router";
-import { EditWorkflowComponent } from "./workflows/edit-workflow/edit-workflow.component";
+import { WorkflowsListComponent } from "./workflows/workflow-list/worflows-list.component";
 
 export const ADMIN_ROUTES: Route[] = [
-    { path: "workflows/:workflowId", component: EditWorkflowComponent }
+    { path: "", redirectTo: "workflows", pathMatch: "full" },
+    { path: "workflows", component: WorkflowsListComponent },
 ];

@@ -22,10 +22,10 @@ import { CreateWorkflowFormComponent } from '../create-workflow-form/create-work
     MatSnackBarModule,
     CreateWorkflowFormComponent,
   ],
-  templateUrl: './worflows-list.component.html',
-  styleUrls: ['./worflows-list.component.css']
+  templateUrl: './workflows-list.component.html',
+  styleUrls: ['./workflows-list.component.css']
 })
-export class WorflowsListComponent implements OnInit {
+export class WorkflowsListComponent implements OnInit {
 
   workflows: Workflow[] = [];
 

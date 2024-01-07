@@ -9,10 +9,16 @@ import { environment } from 'src/environments/environment';
 })
 export class WorkflowService {
 
+  baseUrl = environment.apiUrl + "/workflows";
+
   constructor(private http: HttpClient) { }
 
   getAllWorkflows(): Observable<Workflow[]> {
     return this.http.get<Workflow[]>(environment.apiUrl + "/workflows");
+  }
+
+  getWorkflowById(id: string) : Observable<Workflow>  {
+    return this.http.get<Workflow>(this.baseUrl + `/${id}`);
   }
 
   createWorkflow(payload: any) {
