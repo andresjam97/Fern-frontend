@@ -1,1 +1,24 @@
-<p>edit-workflow works!</p>
+<h1>Edición de proceso</h1>
+
+<ng-container *ngIf="workflow">
+    <section>
+        <div>
+            Título: {{workflow.title}}
+        </div>
+        <div>
+            Estado: {{workflow.status}}
+        </div>
+        <div>
+            Descripción del proceso: {{workflow.description}}
+        </div>
+    </section>
+    <section>
+        <h2>Etapas del proceso</h2>
+        <ng-container *ngIf="workflow?.stages?.length == 0; else stagesWorkflow">
+            Aún no se han definido etapas para este proceso
+        </ng-container>
+        <ng-template #stagesWorkflow>
+            okok
+        </ng-template>
+    </section>
+</ng-container>
