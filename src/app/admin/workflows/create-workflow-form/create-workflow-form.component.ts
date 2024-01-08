@@ -7,6 +7,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Workflow } from '../workflow';
 
 @Component({
   selector: 'app-create-workflow-form',
@@ -33,10 +34,10 @@ export class CreateWorkflowFormComponent {
   }, { validators: Validators.required });
 
   saveWorkflow() {
-    if(this.workflowForm.invalid) return;
+    if (this.workflowForm.invalid) return;
 
     this.loading = true;
-    const payload  = this.workflowForm.value;
+    const payload = this.workflowForm.value as Partial<Workflow>;
     this.service.createWorkflow(payload).subscribe({
       next: (workflow) => {
         this.dialogRef.close(workflow);

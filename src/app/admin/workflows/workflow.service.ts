@@ -21,7 +21,7 @@ export class WorkflowService {
     return this.http.get<Workflow>(this.baseUrl + `/${id}`);
   }
 
-  createWorkflow(payload: any) {
+  createWorkflow(payload: Partial<Workflow>) {
     return this.http.post(this.baseUrl, payload);
   }
 
