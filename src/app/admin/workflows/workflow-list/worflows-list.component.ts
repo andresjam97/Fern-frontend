@@ -82,7 +82,7 @@ export class WorkflowsListComponent implements OnInit {
   }
 
   openEditWorkFlow(workflow: Workflow) {
-    this.router.navigate(["/assignment"]);
+    this.router.navigate(["/admin/workflows", workflow.id, "edit"]);
   }
 }
 
