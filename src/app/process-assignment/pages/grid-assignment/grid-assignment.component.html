@@ -1,12 +1,43 @@
 <app-navigation></app-navigation>
 <div class="container">
-  <mat-form-field>
+  <br>
+  <mat-form-field class="example-full-width">
     <mat-label>Nombre Proceso</mat-label>
-    <input matInput [(ngModel)]="nuevaListaTitulo" placeholder="Nombre de el proceso">
-  </mat-form-field><br>
-  <button mat-raised-button color="primary" (click)="agregarLista()">Agregar proceso</button>
+    <input matInput [(ngModel)]="nombreProceso" placeholder="Nombre de el proceso">
+  </mat-form-field>
+<br>
+  <mat-form-field class="example-full-width">
+    <mat-label>Descripcion Proceso</mat-label>
+    <textarea matInput [(ngModel)]="descripcionProceso"  placeholder="Descripcion Proceso"></textarea>
+  </mat-form-field>
+  <br>
+
+  <button mat-raised-button color="primary" (click)="agregarProceso()"
+  [disabled]="!nombreProceso || !descripcionProceso">Agregar</button>
+
 
   <br><br>
+  <div class="tarjetas-container">
+    <div *ngFor="let proceso of listaProcesos" class="tarjeta">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{ proceso.titulo }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ proceso.descripcion }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button class="config-button" (click)="openDialog()">Configurar</button>
+      </mat-card-actions>
+    </mat-card>
+    </div>
+  </div>
+
+
+
+  <!-- <button mat-raised-button color="primary" (click)="agregarLista()">Agregar proceso</button> -->
+
+  <!-- <br><br>
   <div class="board" cdkDropListGroup>
           <app-list *ngFor="let lista of listas"
                     [list]="lista"
@@ -14,5 +45,5 @@
                     [cdkDropListData]="lista.cards"
                     (cdkDropListDropped)="drop($event)"
                     ></app-list>
-  </div>
+  </div> -->
 </div>

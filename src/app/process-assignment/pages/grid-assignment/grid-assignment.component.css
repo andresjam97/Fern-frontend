@@ -2,3 +2,25 @@
   display: flex;
   /* ... */
 }
+.example-full-width {
+  width: 100%;
+}
+
+.example-card {
+  max-width: 400px;
+}
+.config-button{
+  background-color: #30bc1a;
+  color: white;
+}
+
+.tarjetas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tarjeta {
+  flex: 1;
+}
+

@@ -6,13 +6,15 @@ import { GridAssignmentComponent } from './pages/grid-assignment/grid-assignment
 import { SharedModule } from '../shared/shared.module';
 import { ListComponent } from './pages/list/list.component';
 import { CardComponent } from './pages/card/card.component';
+import { FormsDialogsComponent } from './pages/addons/forms-dialogs/forms-dialogs.component';
 
 
 @NgModule({
   declarations: [
     GridAssignmentComponent,
     ListComponent,
-    CardComponent
+    CardComponent,
+    FormsDialogsComponent
   ],
   imports: [
     CommonModule,
